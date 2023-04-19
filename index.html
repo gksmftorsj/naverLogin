@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>네이버 로그인</title>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+    charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <style>
+    #loginImg:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="naver_id_login"></div>
+
+  <img src="./btnG_로그아웃.png" alt="./btnG_로그아웃.png" id="naver_id_logout" height="40" width="104">
+  <div class="wrap">
+    <h1>네이버 로그인 응답데이터</h1>
+
+    <table class="result">
+    </table>
+  </div>
+
+  <script type="text/javascript">
+
+    /*세팅 사이트에 맞게 설정하세요*/
+    var clientID = 'cXHiHVM40JvdcP0JUEox'; // 네아로 클라이언트 아이디
+    var callbackURL = 'http://127.0.0.1:5500/login/naver/callback.html'; // 네아로에서 설정한 CallBack URL 
+    var siteURL = 'http://127.0.0.1:5500/login/naver/';  // 네아로에서 설정한 사이트 URL 
+
+    var naver_id_login = new naver_id_login(clientID, callbackURL);
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("white", 2, 40);
+    naver_id_login.setDomain(siteURL);
+    naver_id_login.setState(state);
+    naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
+
+  </script>
+  <script>
+    var logoutBtn = document.getElementById("naver_id_logout");
+    logoutBtn.addEventListener("click", () => {
+      var popup = window.open(
+        "https://nid.naver.com/nidlogin.logout",
+        "_blank",
+        "toolbar=yes,scrollbars=yes,resizable=no,width=1,height=1"
+      ); // 로그아웃 창 open
+      setTimeout(() => {
+        popup.close(); // 로그아웃 창 close
+      }, 100)
+      document.querySelector(".result").innerHTML = "";
+    })
+  </script>
+</body>
+
+</html>
